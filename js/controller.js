@@ -23,7 +23,7 @@ app.config(function($routeProvider) {
  
     app.controller('control_add_contacts',function($scope,$http,$sce){
         $scope.add = function(){
-            $http.post("http://localhost:3000/add_contact",{name:$scope.name,number:$scope.number,job:$scope.job,address:$scope.address}).then(
+            $http.post("https://samahpro.herokuapp.com/add_contact",{name:$scope.name,number:$scope.number,job:$scope.job,address:$scope.address}).then(
             function mySuccess(res){
                 if(res.data.error == 0)
                     $scope.error= $sce.trustAsHtml(notif("Successfully inserted","success"));
@@ -36,7 +36,7 @@ app.config(function($routeProvider) {
     });
 
     function getAllContact(http,scope){
-        http.get("http://localhost:3000/get_contact").then(
+        http.get("https://samahpro.herokuapp.com/get_contact").then(
         function mySuccess(res){            
             scope.records= res.data.records;
         },function myError(res){
@@ -47,7 +47,7 @@ app.config(function($routeProvider) {
         }
     }
     function isAuth(http,scope,rootScope){
-        http.get("http://localhost:3000/auth").then(
+        http.get("https://samahpro.herokuapp.com/auth").then(
             function mySuccess(res){
                 if(res.data.auth == true){
                     rootScope.auth = true;
@@ -59,7 +59,7 @@ app.config(function($routeProvider) {
         getAllContact($http,$scope);
         isAuth($http,$scope,$rootScope);
         $scope.delete = function(id,index){
-            $http.delete("http://localhost:3000/del_contact/"+id).then(
+            $http.delete("https://samahpro.herokuapp.com/del_contact/"+id).then(
             function mySuccess(res){
                 if(res.data.error == 0){
                     $scope.error = $sce.trustAsHtml(notif("Deleted","success"));                    
@@ -82,7 +82,7 @@ app.config(function($routeProvider) {
     });
     app.controller("control_update_contacts",function($scope,$http,$sce){
         $scope.edit = function(){
-            $http.post("http://localhost:3000/upd_contact",
+            $http.post("https://samahpro.herokuapp.com/upd_contact",
                 {"id":$scope.id,"name":$scope.name,"number":$scope.number,"job":$scope.job,"address":$scope.address}).then(
                 function mySuccess(res){
                     if(res.data.error == 0)                    
@@ -96,7 +96,7 @@ app.config(function($routeProvider) {
     });
     app.controller("member_control_signout",function($scope,$http,$location){
         $scope.signout = function(){
-            $http.delete("http://localhost:3000/signout").then(
+            $http.delete("https://samahpro.herokuapp.com/signout").then(
                 function mySuccess(res){
                     if(res.data.error == 0){
                         $scope.auth = "";
@@ -108,7 +108,7 @@ app.config(function($routeProvider) {
     });     
     app.controller("member_control_signup",function($scope,$http,$sce){
         $scope.signup = function(){
-            $http.post("http://localhost:3000/signup",
+            $http.post("https://samahpro.herokuapp.com/signup",
                 {"username":$scope.username,"password":$scope.password,"email":$scope.email}).then(
                 function mySuccess(res){
                     if(res.data.error == 0)
@@ -122,7 +122,7 @@ app.config(function($routeProvider) {
     });    
     app.controller("member_control_signin",function($scope,$http,$rootScope,$location,$sce){
         $scope.signin = function(){
-            $http.post("http://localhost:3000/signin",
+            $http.post("https://samahpro.herokuapp.com/signin",
                 {"username":$scope.username,"password":$scope.password}).then(
                 function mySuccess(res){
                     
@@ -140,7 +140,7 @@ app.config(function($routeProvider) {
     }); 
     app.controller("member_control_signout",function($scope,$http,$rootScope,$location,$sce){
         $rootScope.signout = function(){
-            $http.delete("http://localhost:3000/signout").then(
+            $http.delete("https://samahpro.herokuapp.com/signout").then(
                 function mySuccess(res){
                     $scope.error = res.data;
                     $rootScope.auth = null;
